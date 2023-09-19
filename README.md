@@ -2,7 +2,7 @@
 
 ### The bot is used to collect statistics of the latest videos
 
-Before starting, edit the .env.example file and provide the required parameters.
+Before starting, modify the .env.example -> .env file and provide the required parameters.
 
 On the first start, the bot will create an SQLite database and will try to populate it with the 50 latest videos on the channel.
 
