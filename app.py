@@ -1,5 +1,6 @@
 import os
 import time
+import logging
 import threading
 import sqlite3
 import telebot
@@ -18,6 +19,14 @@ API_KEY =  os.getenv('API_KEY')
 CHANNEL_ID = os.getenv('CHANNEL_ID')
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHANNEL_ID = os.getenv('TELEGRAM_CHANNEL_ID')
+
+
+# Logging system settings:
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    level=logging.DEBUG,
+)
+logger = logging.getLogger(__name__)
 
 # Initialize the Telegram bot
 bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
@@ -58,7 +67,7 @@ def read_videos(CHANNEL_ID):
             order='date',
             type='video',
             part='snippet',  # Include snippet information (which contains titles)
-            maxResults=50)  # Adjust the number of results as needed
+            maxResults=10)  # Adjust the number of results as needed
             
     latest_videos = request.execute()
     #print(latest_videos)
@@ -177,7 +186,7 @@ conn.close()
 
 #Change the timer setting for the required updates frequency. 10 minutes by defauls.
 def timer():
-  threading.Timer(60.0, timer).start()  # Run every 1 minute
+  threading.Timer(600.0, timer).start()  # Run every 10 minute
 
   now = datetime.utcnow()
   print(f'Iteration started at:  {now}  UTC')
