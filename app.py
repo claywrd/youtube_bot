@@ -7,7 +7,6 @@ import telebot
 
 from datetime import datetime, timedelta
 from googleapiclient.discovery import build
-from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
 
@@ -31,9 +30,9 @@ logger = logging.getLogger(__name__)
 # Initialize the Telegram bot
 bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
 
-@bot.message_handler(commands=['start', 'help'])
-def send_welcome(message):
-    bot.reply_to(message, "Welcome to the YouTube Stats Bot! I will send you video statistics once an hour.")
+#@bot.message_handler(commands=['start', 'help'])
+#def send_welcome(message):
+    #bot.reply_to(message, "Welcome to the YouTube Stats Bot! I will send you video statistics once an hour.")
 
 # Initialize the YouTube Data API client
 youtube = build('youtube', 'v3', developerKey=API_KEY)
@@ -151,18 +150,24 @@ def check_video_status(TELEGRAM_CHANNEL_ID):
             #Check if video views is positive, else it is not ready for statistics collection
             if views > 0: 
                 #Print statistics for debug purposes       
-                print(f'Video: {title} (ID: {video_id})')
+                print(f'Video: {title}')
+                print(f'Video ID: {video_id}')
                 print(f'Views: {views}')
                 print(f'Likes: {likes}')
                 print(f'Comments: {comments}')
+                print(f'Published at: {published_at_datetime.strftime("%H:%M")} UTC')
+                print(f'Time since published: {time_since_published.seconds // 3600} hour(s) {(time_since_published.seconds % 3600) // 60} minute(s) {time_since_published.days} days')
                 print('------')
 
                 # Send statistics to Telegram
                 message = (
-                    f"Video: {title} (ID: {video_id})\n"
-                    f"Views: {views}\n"
-                    f"Likes: {likes}\n"
-                    f"Comments: {comments}\n"
+                    f'Video: {title}\n' 
+                    f'Video ID: {video_id}\n'
+                    f'Views: {views}\n'
+                    f'Likes: {likes}\n'
+                    f'Comments: {comments}\n'
+                    f'Published at: {published_at_datetime.strftime("%H:%M")} UTC\n'
+                    f'Time since published: {time_since_published.seconds // 3600} hour(s) {(time_since_published.seconds % 3600) // 60} minute(s)  {time_since_published.days} days \n'
                 )
                 bot.send_message(chat_id=TELEGRAM_CHANNEL_ID, text=message)
                 time.sleep(1)
@@ -184,7 +189,7 @@ def check_video_status(TELEGRAM_CHANNEL_ID):
             pass
 conn.close()
 
-#Change the timer setting for the required updates frequency. 1 minutes by defauls.
+#Change the timer setting for the required updates frequency. 10 minutes by defauls.
 def timer():
   threading.Timer(600.0, timer).start()  # Run every 10 minute
 
