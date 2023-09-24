@@ -189,7 +189,8 @@ def check_video_status(TELEGRAM_CHANNEL_ID):
             pass
 conn.close()
 
-#Change the timer setting for the required updates frequency. 1 minute by defauls.
+#Change the timer setting for the required updates frequency. 
+# 1 minute by defauls.
 def timer():
   threading.Timer(60.0, timer).start()  # Run every 1 minute
 
