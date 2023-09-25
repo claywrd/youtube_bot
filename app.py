@@ -174,7 +174,7 @@ def check_video_status(TELEGRAM_CHANNEL_ID):
                     f'Time since published: {time_since_published.seconds // 3600} hour(s) {(time_since_published.seconds % 3600) // 60} minute(s)  {time_since_published.days} days \n'
                 )
                 bot.send_message(chat_id=TELEGRAM_CHANNEL_ID, text=message)
-                time.sleep(1)
+                time.sleep(3)
 
             
 
@@ -191,12 +191,12 @@ def check_video_status(TELEGRAM_CHANNEL_ID):
                 pass      
         else:
             pass
-conn.close()
+    conn.close()
 
-#Change the timer setting for the required updates frequency. 
+#Change the timer setting for the required updates frequency in seconds. 
 # 1 minute by defauls.
 def timer():
-  threading.Timer(60.0, timer).start()  # Run every 1 minute
+  threading.Timer(60.0, timer).start()  # Run every 1 minute (60 seconds)
 
   now = datetime.utcnow()
   print(f'Iteration started at:  {now}  UTC')
