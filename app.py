@@ -114,7 +114,6 @@ def new_video_add(latest_videos):
 
 
 def check_video_status(TELEGRAM_CHANNEL_ID):
-
     #Connect to DB
     db_path = 'pp_video_stats.db'
     conn = sqlite3.connect(db_path)
@@ -196,14 +195,18 @@ def check_video_status(TELEGRAM_CHANNEL_ID):
 #Change the timer setting for the required updates frequency in seconds. 
 # 1 minute by defauls.
 def timer():
-  threading.Timer(60.0, timer).start()  # Run every 1 minute (60 seconds)
+    try:
+        threading.Timer(600.0, timer).start()  # Run every 10 minute (600 seconds)
 
-  now = datetime.utcnow()
-  print(f'Iteration started at:  {now}  UTC')
-  new_video_add(
-    read_videos(CHANNEL_ID))
+        now = datetime.utcnow()
+        print(f'Iteration started at:  {now}  UTC')
+        new_video_add(
+            read_videos(CHANNEL_ID))
     
-  check_video_status(TELEGRAM_CHANNEL_ID)
+        check_video_status(TELEGRAM_CHANNEL_ID)
+    
+    except Exception as e:
+        print(f"Error occured: {str(e)}")
 
 timer() 
     
