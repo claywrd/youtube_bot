@@ -196,7 +196,7 @@ def check_video_status(TELEGRAM_CHANNEL_ID):
 # 1 minute by defauls.
 def timer():
     try:
-        threading.Timer(600.0, timer).start()  # Run every 10 minute (600 seconds)
+        threading.Timer(60.0, timer).start()  # Run every 1 minute (60 seconds)
 
         now = datetime.utcnow()
         print(f'Iteration started at:  {now}  UTC')
