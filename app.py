@@ -30,9 +30,13 @@ logger = logging.getLogger(__name__)
 # Initialize the Telegram bot
 bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
 
-#@bot.message_handler(commands=['start', 'help'])
-#def send_welcome(message):
-    #bot.reply_to(message, "Welcome to the YouTube Stats Bot! I will send you video statistics once an hour.")
+# You may add Telegram bot endpoints here if needed:
+
+'''
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+     bot.reply_to(message, "Welcome to the YouTube Stats Bot! I will send you video statistics once an hour.")
+'''
 
 # Initialize the YouTube Data API client
 youtube = build('youtube', 'v3', developerKey=API_KEY)
