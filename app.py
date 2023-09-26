@@ -151,7 +151,7 @@ def check_video_status(TELEGRAM_CHANNEL_ID):
             duration = video_stats['items'][0]['contentDetails']['duration']
             print(f'Duration: {duration}')
             #Check if video views is positive, else it is not ready for statistics collection
-            if views > 0: 
+            if views > 0 and comments > 0: 
                 #Print statistics for debug purposes       
                 print(f'Video: {title}')
                 print(f'Video ID: {video_id}')
@@ -196,7 +196,7 @@ def check_video_status(TELEGRAM_CHANNEL_ID):
 # 1 minute by defauls.
 def timer():
     try:
-        threading.Timer(60.0, timer).start()  # Run every 1 minute (60 seconds)
+        threading.Timer(60.0, timer).start()  # Run every 1 minutes (600 seconds)
 
         now = datetime.utcnow()
         print(f'Iteration started at:  {now}  UTC')
